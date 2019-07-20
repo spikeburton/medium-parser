@@ -1,0 +1,22 @@
+{
+  "name": "medium-parser",
+  "version": "1.0.0",
+  "description": "Parse Medium RSS Feed and return JSON",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spikeburton/medium-parser.git"
+  },
+  "author": "Spike Burton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spikeburton/medium-parser/issues"
+  },
+  "homepage": "https://github.com/spikeburton/medium-parser#readme",
+  "dependencies": {
+    "axios": "^0.19.0"
+  }
+}
