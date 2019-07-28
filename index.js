@@ -14,9 +14,13 @@ exports.handler = async () => {
       let post = {};
 
       post.id = posts[i].id;
+      post.createdAt = posts[i].createdAt;
       post.title = posts[i].title;
-      post.slug = posts[i].uniqueSlug;
-      post.firstPublishedAt = posts[i].firstPublishedAt;
+      post.subtitle = posts[i].virtuals.subtitle;
+      post.image = `https://miro.medium.com/fit/c/800/400/${
+        posts[i].virtuals.previewImage.imageId
+      }`;
+      post.url = `https://medium.com/@${username}/${posts[i].uniqueSlug}`;
 
       result.push(post);
     }
