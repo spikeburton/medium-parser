@@ -1,7 +1,22 @@
 const axios = require('axios');
-const username = 'spikeburton';
 
-exports.handler = async () => {
+exports.handler = async event => {
+  const username = event['queryStringParameters']['username'];
+  const headers = {
+    'Access-Control-Allow-Origin': '*'
+  };
+
+  if (!username) {
+    return {
+      statusCode: 400,
+      headers,
+      body: JSON.stringify({ error: 'You must provide your username!' })
+    };
+  }
+
+  const width = event['queryStringParameters']['width'] || 800;
+  const height = event['queryStringParameters']['height'] || 400;
+
   try {
     const res = await axios.get(
       `https://medium.com/@${username}/latest?format=json`
@@ -17,7 +32,7 @@ exports.handler = async () => {
       post.createdAt = posts[i].createdAt;
       post.title = posts[i].title;
       post.subtitle = posts[i].virtuals.subtitle;
-      post.image = `https://miro.medium.com/fit/c/800/400/${
+      post.image = `https://miro.medium.com/fit/c/${width}/${height}/${
         posts[i].virtuals.previewImage.imageId
       }`;
       post.url = `https://medium.com/@${username}/${posts[i].uniqueSlug}`;
@@ -27,12 +42,14 @@ exports.handler = async () => {
 
     return {
       statusCode: 200,
-      body: result
+      headers,
+      body: JSON.stringify(result)
     };
-  } catch (e) {
+  } catch (err) {
     return {
       statusCode: 400,
-      body: { msg: e.message }
+      headers,
+      body: JSON.stringify({ msg: err.message })
     };
   }
 };
